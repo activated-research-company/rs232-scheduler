@@ -1,0 +1,66 @@
+{
+  "name": "rs232-scheduler",
+  "productName": "rs232-scheduler",
+  "version": "1.0.0",
+  "description": "My Electron application description",
+  "main": "src/index.js",
+  "scripts": {
+    "install": "electron-rebuild",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "echo \"No linting configured\""
+  },
+  "keywords": [],
+  "author": {
+    "name": "Adam Lee",
+    "email": "adam.lee@activatedresearch.com"
+  },
+  "license": "MIT",
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "rs232_scheduler"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
+  },
+  "dependencies": {
+    "dotenv": "^8.1.0",
+    "electron-log": "^3.0.7",
+    "electron-settings": "^3.2.0",
+    "electron-squirrel-startup": "^1.0.0",
+    "mithril": "^2.0.4",
+    "serialport": "^7.1.5",
+    "tachyons": "4.10.0"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "6.0.0-beta.44",
+    "@electron-forge/maker-deb": "6.0.0-beta.44",
+    "@electron-forge/maker-rpm": "6.0.0-beta.44",
+    "@electron-forge/maker-squirrel": "6.0.0-beta.44",
+    "@electron-forge/maker-zip": "6.0.0-beta.44",
+    "electron": "6.0.3",
+    "electron-reload": "^1.5.0"
+  }
+}

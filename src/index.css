@@ -1,0 +1,25 @@
+.scheduler {
+  position:absolute;
+  left: 50%;
+  top: 50%;
+  width: 500px;
+  height: 600px;
+
+  margin-left: -250px; /* -1/2 width */
+  margin-top: -300px; /* -1/2 height */
+}
+
+.w-15 { width: 15%; }
+.w-30 { width: 30%; }
+.w-40 { width: 40%; }
+
+.o-95 { opacity: .95 }
+.o-85 { opacity: .85 }
+.o-75 { opacity: .75 }
+.o-65 { opacity: .65 }
+.o-55 { opacity: .55 }
+.o-45 { opacity: .45 }
+.o-35 { opacity: .35 }
+.o-25 { opacity: .25 }
+.o-15 { opacity: .15 }
+.o-5 { opacity: .05 }
