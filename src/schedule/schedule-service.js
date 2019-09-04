@@ -47,7 +47,7 @@ function processNextEvent() {
     processNextEvent();
   } else if (remainingTemperatures.length > 0) {
     loop = 1;
-    remainingEvents = JSON.parse(JSON.stringify(schedule.getLoop()));
+    remainingEvents = JSON.parse(JSON.stringify(schedule.getBeforeNextLoop())).concat(JSON.parse(JSON.stringify(schedule.getLoop())));
     temperature = remainingTemperatures.shift();
     processNextEvent();
   } else {

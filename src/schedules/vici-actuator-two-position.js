@@ -10,7 +10,7 @@ const schedule = {
       args: 'A',
     },
     {
-      title: 'wait for temp',
+      title: 'wait for init temp',
       command: 'wait',
       args: state.waitI,
     },
@@ -35,6 +35,13 @@ const schedule = {
       title: 'hold position B',
       command: 'wait',
       args: state.waitB,
+    },
+  ],
+  getBeforeNextLoop: () => [
+    {
+      title: 'wait for next temp',
+      command: 'wait',
+      args: state.waitT,
     },
   ],
 };
