@@ -1,5 +1,6 @@
 const m = require('mithril');
 const eventEmitter = require('../event-emitter/event-emitter');
+const logger = require('../logger/logger');
 const getStandardDateFormat = require('../utility/get-standard-date-format');
 
 function recentEventList() {
@@ -71,6 +72,7 @@ function recentEventList() {
     },
     view: () => m('div.pa1',
       [
+        m('div.tc.pb1', m('a', { href: `file:///${logger.transports.file.findLogPath()}`, target: '_blank' }, 'View Log File')),
         m('div.flex', [
           m('div.w-30.tc.outline', 'Event'),
           m('div.w-15.tc.outline', 'Temp'),
