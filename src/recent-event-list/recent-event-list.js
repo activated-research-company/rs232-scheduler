@@ -30,6 +30,10 @@ function recentEventList() {
     addEventToList('schedule resumed', null, null, completedOn);
   }
 
+  function onLostPower(completedOn) {
+    addEventToList('LOST POWER', null, null, new Date());
+  }
+
   function getEventWithTimestamp(event) {
     return [
       m('div.w-30', event.title),
@@ -49,6 +53,8 @@ function recentEventList() {
           return '.bg-yellow';
       case 'schedule resumed':
           return '.bg-orange';
+      case 'LOST POWER':
+        return '.bg-red.b.i';
       default:
         return index % 2 === (events.length % 2 === 0 ? 0 : 1) ? '.bg-moon-gray' : '';
     }
@@ -68,6 +74,7 @@ function recentEventList() {
       eventEmitter.on('scheduleComplete', onScheduleComplete);
       eventEmitter.on('schedulePause', onSchedulePause);
       eventEmitter.on('scheduleResume', onScheduleResume);
+      eventEmitter.on('lostpower', onLostPower);
       eventEmitter.on('eventStart', addEventToList);
     },
     view: () => m('div.pa1',

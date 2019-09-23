@@ -4,6 +4,7 @@ const eventEmitter = require('../event-emitter/event-emitter');
 
 let serialPorts;
 let serialPort;
+let needsPreflight = true;
 let connected = false;
 const commandDelimiter = '\r'
 
@@ -20,17 +21,42 @@ function onDisconnect() {
   reconnect();
 }
 
+function onLostPower() {
+  eventEmitter.emit('disconnected');
+  eventEmitter.emit('lostpower');
+  lostPower = true;
+}
+
 function onFoundActuator(i) {
-  eventEmitter.emit(`connected`, serialPorts[i].comName);
-  connected = true;
-  serialPorts[i].isActuator = true;
-  serialPort = serialPorts[i].serialPort;
-  serialPort.on('close', onDisconnect);
+  if (!connected) {
+    eventEmitter.emit(`connected`, serialPorts[i].comName);
+    connected = true;
+    serialPort = serialPorts[i].serialPort;
+    serialPorts[i].isActuator = true;
+    serialPorts[i].parser.on('data', () => { 
+      lostPower = false;
+      needsPreflight = false;
+    });
+    serialPort.on('close', onDisconnect);
+    serialPort.on('error', (error) => { eventEmitter.emit('error', error); });
+  }
 }
 
 function writeToSerialPort(message, i) {
   if (connected) {
-    serialPort.write(`${message}${commandDelimiter}`);
+    if (needsPreflight) {
+      serialPort.write(`CP${commandDelimiter}`);
+      setTimeout(() => {
+        if (!needsPreflight) {
+          writeToSerialPort(message);
+        } else {
+          onLostPower();
+        }
+      }, 500);
+    } else {
+      serialPort.write(`${message}${commandDelimiter}`);
+      needsPreflight = true;
+    }
   } else {
     serialPorts[i].serialPort.write(`${message}${commandDelimiter}`);
   }

@@ -2,7 +2,6 @@ const settings = require('electron-settings');
 const state = require('../state/state');
 
 const schedule = {
-  loops: 3,
   getSetup: () => [
     {
       title: 'move to position A',

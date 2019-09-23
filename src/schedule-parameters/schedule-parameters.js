@@ -36,6 +36,12 @@ function scheduleParameters() {
             m('input.w-75', { oninput: (event) => { state.temperatures = event.target.value; }}),
           ],
         ),
+        m('div.flex',
+          [
+            m('div.w-25', 'loops'),
+            m('input.w-75', { oninput: (event) => { state.loops = event.target.value; }, value: state.loops }),
+          ],
+        ),
       ]),
     ]),
   };

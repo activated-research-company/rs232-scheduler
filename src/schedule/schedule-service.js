@@ -41,7 +41,7 @@ function processEvent(event) {
 function processNextEvent() {
   if (remainingEvents.length > 0) {
     processEvent(remainingEvents.shift());
-  } else if (loop < schedule.loops) {
+  } else if (loop < state.loops) {
     loop = loop + 1;
     remainingEvents = JSON.parse(JSON.stringify(schedule.getLoop()));
     processNextEvent();
@@ -72,11 +72,17 @@ function start() {
 
 function pause() {
   paused = true;
-  clearTimeout(timeout);
+  if (timeout) { clearTimeout(timeout); }
   eventEmitter.emit('schedulePause', new Date().toJSON());
+}
+function pause() {
+  paused = true;
+  if (timeout) { clearTimeout(timeout); }
 }
 
 eventEmitter.on(eventComplete, processNextEvent)
+eventEmitter.on('disconnected', () => { pause(); });
+eventEmitter.on('lostpower', () => { pause(); });
 
 actuator.connect();
 

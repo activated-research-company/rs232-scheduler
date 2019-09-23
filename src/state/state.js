@@ -4,4 +4,5 @@ module.exports = {
   waitB: 0,
   waitT: 0,
   temperatures: '',
+  loops: 3,
 };
